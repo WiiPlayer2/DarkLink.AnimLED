@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PresenceLEDLib.Commands;
 
 namespace PresenceLEDLib
 {
@@ -35,7 +37,7 @@ namespace PresenceLEDLib
             var msgLength = 0;
             for (var i = 1; i < responseBuffer.Length; i++)
             {
-                if (responseBuffer[i] == '\n')
+                if (responseBuffer[i] == '\r' || responseBuffer[i] == '\n')
                 {
                     msgLength = i - 1;
                     break;
@@ -47,6 +49,11 @@ namespace PresenceLEDLib
                 throw new Exception($"Error: {msg}");
 
             return (status, msg);
+        }
+
+        public async Task Call(Command cmd, CancellationToken cancellationToken = default)
+        {
+            await SendPacket(new[] {(byte) cmd.Type}.Concat(cmd.Serialize()).ToArray(), cancellationToken);
         }
     }
 }
