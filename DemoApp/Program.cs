@@ -3,13 +3,14 @@ using System.IO.Ports;
 using System.Threading.Tasks;
 using PresenceLEDLib;
 using PresenceLEDLib.Commands;
+using PresenceLEDLib.Formats;
 using PresenceLEDLib.Types;
 
 namespace DemoApp
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var serialPort = new SerialPort("COM6", 115200)
             {
@@ -19,23 +20,21 @@ namespace DemoApp
             };
             serialPort.Open();
 
+            var imageData = new R8G8B8ImageData(8, 8, 4);
+            imageData.Frames[0][0, 0] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
+            imageData.Frames[1][7, 0] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
+            imageData.Frames[2][7, 7] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
+            imageData.Frames[3][0, 7] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
+
             var device = new Device(serialPort.BaseStream);
             await device.Call(new Update
             {
-                ColorFormat = ColorFormat._1BPP,
-                Frames = 4,
+                ColorFormat = imageData.Format,
+                Frames = (byte) imageData.Frames.Count,
                 Delay = 100,
                 Loop = true,
             });
-            await device.SendPacket(new byte[]
-            {
-                0x00, 0xFF, 0x00, // Color #0
-                0xFF, 0x00, 0x00, // Color #1
-                0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, // Frame #0
-                0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, // Frame #1
-                0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, // Frame #2
-                0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, // Frame #3
-            });
+            await device.SendPacket(imageData.Serialize());
         }
     }
 }
