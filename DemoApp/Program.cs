@@ -20,11 +20,16 @@ namespace DemoApp
             };
             serialPort.Open();
 
-            var imageData = new R8G8B8ImageData(8, 8, 4);
-            imageData.Frames[0][0, 0] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
-            imageData.Frames[1][7, 0] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
-            imageData.Frames[2][7, 7] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
-            imageData.Frames[3][0, 7] = new ColorR8G8B8(0xFF, 0xFF, 0xFF);
+            var metaData = new PaletteMetaData(new ColorR8G8B8[]
+            {
+                new(0x00, 0x00, 0x00),
+                new(0xFF, 0x00, 0xFF),
+            });
+            var imageData = new PaletteImageData(8, 8, metaData, 4, 1);
+            imageData.Frames[0][0, 0] = 1;
+            imageData.Frames[1][7, 0] = 1;
+            imageData.Frames[2][7, 7] = 1;
+            imageData.Frames[3][0, 7] = 1;
 
             var device = new Device(serialPort.BaseStream);
             await device.Call(new Update

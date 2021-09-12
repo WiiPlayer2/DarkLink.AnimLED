@@ -17,7 +17,7 @@ namespace PresenceLEDLib.Formats
 
         public int Height { get; }
 
-        public TPixelData this[int x, int y]
+        public virtual TPixelData this[int x, int y]
         {
             get => data[x, y];
             set => data[x, y] = value;

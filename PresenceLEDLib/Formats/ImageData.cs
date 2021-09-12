@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using PresenceLEDLib.Types;
 
@@ -9,12 +10,12 @@ namespace PresenceLEDLib.Formats
         where TMetaData : MetaData
         where TFrameData : FrameData<TPixelData>
     {
-        protected ImageData(int width, int height, TMetaData metaData, int frameCount)
+        protected ImageData(int width, int height, TMetaData metaData, int frameCount, Func<TFrameData> createFrame)
         {
             Width = width;
             Height = height;
             MetaData = metaData;
-            Frames = Enumerable.Repeat(0, frameCount).Select(_ => CreateFrame()).ToArray();
+            Frames = Enumerable.Repeat(0, frameCount).Select(_ => createFrame()).ToArray();
         }
 
         public int Width { get; }
@@ -26,8 +27,6 @@ namespace PresenceLEDLib.Formats
         public IReadOnlyList<TFrameData> Frames { get; }
 
         public abstract ColorFormat Format { get; }
-
-        protected abstract TFrameData CreateFrame();
 
         public byte[] Serialize() => MetaData.Serialize().Concat(Frames.SelectMany(o => o.Serialize())).ToArray();
     }
