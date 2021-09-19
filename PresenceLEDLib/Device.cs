@@ -52,8 +52,9 @@ namespace PresenceLEDLib
         }
 
         public async Task Call(Command cmd, CancellationToken cancellationToken = default)
-        {
-            await SendPacket(new[] {(byte) cmd.Type}.Concat(cmd.Serialize()).ToArray(), cancellationToken);
-        }
+            => await Call(cmd.Type, cmd.Serialize(), cancellationToken);
+
+        public async Task Call(CommandType commandType, byte[] packet, CancellationToken cancellationToken = default)
+            => await SendPacket(new[] { (byte)commandType }.Concat(packet).ToArray(), cancellationToken);
     }
 }
