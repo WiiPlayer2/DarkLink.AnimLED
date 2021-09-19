@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 using System.Threading.Tasks;
 using PresenceLEDLib;
 using PresenceLEDLib.Commands;
@@ -18,7 +19,6 @@ namespace DemoApp
                 RtsEnable = true,
                 ReadTimeout = 2000,
             };
-            serialPort.Open();
 
             var metaData = new PaletteMetaData(new ColorR8G8B8[]
             {
@@ -36,15 +36,32 @@ namespace DemoApp
                 }
             }
 
-            var device = new Device(serialPort.BaseStream);
-            await device.Call(new Update
+            var meta = new AnimationMeta()
             {
-                ColorFormat = imageData.Format,
-                Frames = (byte) imageData.Frames.Count,
-                Delay = 500,
-                Loop = true,
-            });
-            await device.SendPacket(imageData.Serialize());
+                ColorFormat = ColorFormat._1BPP,
+                ImageCount = 2,
+                FrameCount = 2,
+                LoopStartIndex = 0,
+                BaseDelay = 250,
+            };
+            var frames = new AnimationFrame[2]
+            {
+                new()
+                {
+                    ImageIndex = 0,
+                    DelayFactor = 1,
+                },
+                new()
+                {
+                    ImageIndex = 1,
+                    DelayFactor = 1,
+                },
+            };
+            var packet = meta.ToBytes().Concat(frames.ToBytes()).Concat(imageData.Serialize()).ToArray();
+
+            serialPort.Open();
+            var device = new Device(serialPort.BaseStream);
+            await device.Call(CommandType.Update, packet);
         }
     }
 }

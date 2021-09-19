@@ -21,5 +21,8 @@ namespace PresenceLEDLib
 
             return arr;
         }
+
+        public static byte[] ToBytes<T>(this T[] arr)
+            => arr.SelectMany(o => o.ToBytes()).ToArray();
     }
 }
