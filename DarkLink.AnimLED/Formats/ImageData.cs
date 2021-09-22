@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using PresenceLEDLib.Types;
+using DarkLink.AnimLED.Types;
 
-namespace PresenceLEDLib.Formats
+namespace DarkLink.AnimLED.Formats
 {
     public abstract class ImageData<TMetaData, TFrameData, TPixelData>
         where TMetaData : MetaData

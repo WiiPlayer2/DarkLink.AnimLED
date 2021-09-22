@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PresenceLEDLib\PresenceLEDLib.csproj" />
+    <ProjectReference Include="..\DarkLink.AnimLED\DarkLink.AnimLED.csproj" />
   </ItemGroup>
 
 </Project>

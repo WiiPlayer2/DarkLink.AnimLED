@@ -1,7 +1,7 @@
 ﻿using System;
-using PresenceLEDLib.Types;
+using DarkLink.AnimLED.Types;
 
-namespace PresenceLEDLib.Formats
+namespace DarkLink.AnimLED.Formats
 {
     public class PaletteImageData : ImageData<PaletteMetaData, PaletteFrameData, byte>
     {

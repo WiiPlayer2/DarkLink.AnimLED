@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PresenceLEDLib.Commands
+namespace DarkLink.AnimLED.Commands
 {
     public abstract class Command
     {

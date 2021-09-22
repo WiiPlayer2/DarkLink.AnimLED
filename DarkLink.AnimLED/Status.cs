@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PresenceLEDLib
+namespace DarkLink.AnimLED
 {
     public enum Status : byte
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresenceLEDLib", "PresenceLEDLib\PresenceLEDLib.csproj", "{645160D7-1170-4999-9324-C357CC3F30DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarkLink.AnimLED", "DarkLink.AnimLED\DarkLink.AnimLED.csproj", "{645160D7-1170-4999-9324-C357CC3F30DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{B09053D7-C70E-4F31-A60F-FBCE13DAD455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp", "DemoApp\DemoApp.csproj", "{B09053D7-C70E-4F31-A60F-FBCE13DAD455}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

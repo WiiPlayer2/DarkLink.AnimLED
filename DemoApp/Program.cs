@@ -2,10 +2,10 @@
 using System.IO.Ports;
 using System.Linq;
 using System.Threading.Tasks;
-using PresenceLEDLib;
-using PresenceLEDLib.Commands;
-using PresenceLEDLib.Formats;
-using PresenceLEDLib.Types;
+using DarkLink.AnimLED;
+using DarkLink.AnimLED.Commands;
+using DarkLink.AnimLED.Formats;
+using DarkLink.AnimLED.Types;
 
 namespace DemoApp
 {

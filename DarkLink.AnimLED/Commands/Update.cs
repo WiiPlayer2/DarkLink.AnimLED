@@ -1,28 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using PresenceLEDLib.Types;
+using DarkLink.AnimLED.Types;
 
-namespace PresenceLEDLib.Commands
+namespace DarkLink.AnimLED.Commands
 {
     public class Update : Command
     {
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        internal struct Struct
-        {
-            public ColorFormat ColorFormat;
-
-            public byte Frames;
-
-            public byte Loop;
-
-            public ulong Delay;
-        }
-
         public override CommandType Type => CommandType.Update;
 
         public ColorFormat ColorFormat { get; set; }
@@ -40,5 +23,17 @@ namespace PresenceLEDLib.Commands
             Loop = Loop ? (byte) 1 : (byte) 0,
             Delay = Delay,
         }.ToBytes();
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        internal struct Struct
+        {
+            public ColorFormat ColorFormat;
+
+            public byte Frames;
+
+            public byte Loop;
+
+            public ulong Delay;
+        }
     }
 }

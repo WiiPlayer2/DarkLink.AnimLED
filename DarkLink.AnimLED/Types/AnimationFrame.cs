@@ -1,6 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
-namespace PresenceLEDLib.Types
+namespace DarkLink.AnimLED.Types
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct AnimationFrame
