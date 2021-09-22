@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>DarkLink</Authors>
+    <VersionPrefix>0.0.1</VersionPrefix>
   </PropertyGroup>
 
 </Project>
